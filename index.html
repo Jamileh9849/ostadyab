@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>پل — ارتباط معلم و شاگرد</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap">
+<style>
+:root{
+  --paper:#f4f7f2; --grid:#d9e3dc; --ink:#1d2a5b; --muted:#56608a; --pencil:#f0b920; --margin:#d6455d; --card:#ffffff; --line:#c9d3cc; --ok:#1f7a55;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+:root:not([data-theme="light"]){}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--paper:#121a33; --grid:#1b2547; --ink:#eef1ff; --muted:#a4acd0; --pencil:#f0b920; --margin:#ff7189; --card:#1a2447; --line:#2d3865; --ok:#5fd3a0; color-scheme:dark}
+}
+:root[data-theme="dark"]{--paper:#121a33; --grid:#1b2547; --ink:#eef1ff; --muted:#a4acd0; --card:#1a2447; --line:#2d3865; --margin:#ff7189; --ok:#5fd3a0; color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font-family:"Vazirmatn",Tahoma,sans-serif;color:var(--ink);background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;line-height:1.9;font-size:16px}
+body::after{content:"";position:fixed;inset:0 auto 0 auto;right:18px;width:2px;background:var(--margin);opacity:.35;pointer-events:none}
+.wrap{max-width:760px;margin:0 auto;padding:20px 28px 60px 20px}
+h1,h2,h3{line-height:1.5;margin:0}
+h1{font-size:clamp(30px,8vw,46px);font-weight:800}
+h2{font-size:22px;font-weight:800;margin-bottom:12px}
+p{margin:0 0 12px}
+.hero{padding:28px 0 8px}
+.hero p{color:var(--muted);max-width:34em}
+.bridge{width:100%;max-width:520px;height:auto;display:block;margin:18px 0 6px}
+.bridge *{stroke:var(--ink)}
+.cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+button,.btn{font:inherit;font-weight:600;border-radius:10px;padding:10px 18px;border:2px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer;text-decoration:none;display:inline-block}
+.primary{background:var(--pencil);color:#1d2a5b;border-color:#1d2a5b}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--margin);outline-offset:2px}
+section{margin-top:40px}
+.tabs{display:flex;gap:0;border:2px solid var(--ink);border-radius:12px;overflow:hidden;width:max-content;max-width:100%;margin-bottom:16px;background:var(--card)}
+.tabs button{border:0;border-radius:0;background:transparent}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+label{display:block;font-size:14px;color:var(--muted);margin-bottom:4px}
+input,select,textarea{font:inherit;width:100%;padding:9px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+.filters>div{flex:1 1 140px}
+.list{display:grid;gap:12px}
+.t{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center}
+.t h3{font-size:17px}
+.t .meta{color:var(--muted);font-size:14px}
+.price{font-weight:800;white-space:nowrap}
+.t button{grid-column:1/-1;justify-self:start}
+.empty{padding:18px;border:2px dashed var(--line);border-radius:14px;color:var(--muted)}
+.note{font-size:13px;color:var(--muted)}
+.panel{background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:16px}
+.panel form{display:grid;gap:12px}
+.toast{margin-top:12px;padding:10px 14px;border-radius:10px;background:var(--ok);color:#fff;display:none}
+.plans{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.plan{border:2px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--card)}
+.plan b{display:block;font-size:18px}
+.plan .big{font-size:26px;font-weight:800;margin:4px 0}
+.hidden{display:none}
+footer{margin-top:44px;color:var(--muted);font-size:14px}
+dialog{border:2px solid var(--ink);border-radius:14px;background:var(--card);color:var(--ink);max-width:420px;width:calc(100% - 32px);padding:18px}
+dialog::backdrop{background:rgba(10,15,40,.55)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>پل؛ از معلم تا شاگرد، فقط یک پیام فاصله است</h1>
+  <p>معلم مناسب را بر اساس پایه و درس پیدا کن، درخواستت را بفرست و گفتگو را در بله ادامه بده. معلم‌ها هم می‌توانند ثبت‌نام کنند و دانش‌آموز جدید بگیرند.</p>
+  <svg class="bridge" viewBox="0 0 520 130" role="img" aria-label="پلی میان معلم و دانش‌آموز">
+    <g fill="none" stroke-width="3" stroke-linecap="round">
+      <path d="M70 100 Q260 -10 450 100"/>
+      <path d="M20 100 H500"/>
+      <path d="M120 100 V62 M170 100 V44 M220 100 V34 M300 100 V34 M350 100 V44 M400 100 V62" stroke-width="2"/>
+    </g>
+    <circle cx="40" cy="70" r="12" fill="var(--pencil)" stroke-width="3"/>
+    <path d="M26 100 Q40 84 54 100" fill="none" stroke-width="3"/>
+    <circle cx="480" cy="70" r="12" fill="var(--margin)" stroke-width="3"/>
+    <path d="M466 100 Q480 84 494 100" fill="none" stroke-width="3"/>
+  </svg>
+  <div class="cta-row">
+    <a class="btn primary" href="#find">پیدا کردن معلم</a>
+    <a class="btn" href="#join">ثبت‌نام معلم</a>
+  </div>
+</header>
+
+<section id="find">
+  <h2>معلم پیدا کن</h2>
+  <div class="filters">
+    <div><label for="fGrade">پایه</label>
+      <select id="fGrade"><option value="">همه</option><option>هفتم</option><option>هشتم</option><option>نهم</option><option>دبیرستان</option></select></div>
+    <div><label for="fSubj">درس</label>
+      <select id="fSubj"><option value="">همه</option><option>ریاضی</option><option>علوم</option><option>فیزیک</option><option>زبان انگلیسی</option><option>ادبیات</option></select></div>
+  </div>
+  <div id="list" class="list" aria-live="polite"></div>
+  <p class="note" style="margin-top:10px">فهرست بالا نمونه است. بعد از ثبت‌نام معلم‌ها، اطلاعات واقعی جایگزین می‌شود.</p>
+</section>
+
+<section id="join">
+  <h2>معلم هستی؟ به پل بپیوند</h2>
+  <div class="panel">
+    <form id="tForm">
+      <div><label for="tName">نام و نام خانوادگی</label><input id="tName" required></div>
+      <div><label for="tSubj">درس‌ها و پایه‌ها</label><input id="tSubj" placeholder="مثلاً ریاضی هفتم تا نهم" required></div>
+      <div><label for="tPrice">هزینه‌ی هر جلسه (تومان)</label><input id="tPrice" inputmode="numeric" required></div>
+      <div><label for="tBio">معرفی کوتاه</label><textarea id="tBio" rows="3"></textarea></div>
+      <div><label for="tId">آیدی بله شما</label><input id="tId" dir="ltr" placeholder="@username" required></div>
+      <div><label for="tPay">لینک پرداخت شما (اختیاری، مثلاً زرین‌لینک)</label><input id="tPay" dir="ltr" placeholder="https://"></div>
+      <button class="primary" type="submit">ارسال درخواست ثبت‌نام</button>
+    </form>
+  </div>
+</section>
+
+<section id="admin" class="hidden">
+  <h2>درخواست‌های ثبت‌نام (فقط مدیر)</h2>
+  <div id="adminList" class="list"></div>
+</section>
+
+<section id="money">
+  <h2>پل چطور کار می‌کند؟</h2>
+  <div class="plans">
+    <div class="plan"><b>برای دانش‌آموز</b><div class="big">پرداخت هر جلسه</div>جستجو و ارسال درخواست رایگان است. هزینه‌ی آموزش را دانش‌آموز می‌پردازد.</div>
+    <div class="plan"><b>برای معلم</b><div class="big">اشتراک ماهانه</div>نمایش ویژه در بالای فهرست و دریافت درخواست‌های بیشتر.</div>
+    <div class="plan"><b>سهم پل</b><div class="big">۱۰٪ از هر جلسه</div>هزینه‌ی دانش‌آموز به پل پرداخت می‌شود و بعد از برگزاری جلسه، ۹۰٪ آن به معلم می‌رسد.</div>
+  </div>
+</section>
+
+<footer>برای پرسش و همکاری، در بله پیام بدهید.</footer>
+</div>
+
+<dialog id="dlg">
+  <h2 id="dTitle">درخواست کلاس</h2>
+  <form id="sForm" style="display:grid;gap:12px">
+    <div><label for="sName">نام دانش‌آموز</label><input id="sName" required></div>
+    <div><label for="sGrade">پایه</label><input id="sGrade" required></div>
+    <div><label for="sMsg">توضیح کوتاه</label><textarea id="sMsg" rows="3" placeholder="چه کمکی لازم داری؟"></textarea></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="primary" type="submit">ارسال در بله</button>
+      <button type="button" id="dClose">انصراف</button>
+    </div>
+  </form>
+  <div class="toast" id="toast" role="status"></div>
+</dialog>
+
+<script>
+// تنظیمات: آیدی بله خودت را اینجا بگذار
+var ADMIN_BALE = "Abc123";
+var teachers = [
+  {n:"معلم نمونه ۱", s:"ریاضی", g:"هفتم تا نهم", p:"۲۰۰٬۰۰۰", id:ADMIN_BALE, b:"تدریس مفهومی با حل مسئله"},
+  {n:"معلم نمونه ۲", s:"علوم", g:"هفتم و هشتم", p:"۱۸۰٬۰۰۰", id:ADMIN_BALE, b:"آموزش با آزمایش ساده"},
+  {n:"معلم نمونه ۳", s:"فیزیک", g:"دبیرستان", p:"۲۵۰٬۰۰۰", id:ADMIN_BALE, b:"آمادگی آزمون و رفع اشکال"},
+  {n:"معلم نمونه ۴", s:"زبان انگلیسی", g:"نهم و دبیرستان", p:"۲۲۰٬۰۰۰", id:ADMIN_BALE, b:"مکالمه و گرامر"}
+];
+var cur = null;
+var PAY_LINK = ""; // لینک پرداخت پیش‌فرض (https://...) اگر معلم لینک نداشته باشد
+var db = null, user = null, live = [];
+var $ = function(i){return document.getElementById(i)};
+function render(){
+  var g=$("fGrade").value, s=$("fSubj").value, box=$("list"); box.textContent="";
+  var items=(live.length?live:teachers).filter(function(t){var all=t.s+" "+t.g;return (!s||all.indexOf(s)>-1)&&(!g||all.indexOf(g)>-1)});
+  if(!items.length){var e=document.createElement("div");e.className="empty";e.textContent="معلمی با این فیلتر پیدا نشد. فیلتر را تغییر بده یا درخواستت را برای ما بفرست.";box.appendChild(e);return}
+  items.forEach(function(t){
+    var d=document.createElement("div");d.className="t";
+    d.innerHTML='<div><h3></h3><div class="meta"></div></div><div class="price"></div><button type="button">درخواست کلاس</button>';
+    d.querySelector("h3").textContent=t.n+" — "+t.s;
+    d.querySelector(".meta").textContent=t.g+" · "+t.b;
+    d.querySelector(".price").textContent=t.p+" تومان";
+    d.querySelector("button").onclick=function(){cur=t;$("dTitle").textContent="درخواست کلاس از "+t.n;$("toast").style.display="none";$("dlg").showModal()};
+    var pl=t.pay||PAY_LINK;
+    if(/^https:\/\//.test(pl)){var pb=document.createElement("button");pb.type="button";pb.className="primary";pb.textContent="پرداخت هزینه جلسه";pb.onclick=function(){window.open(pl,"_blank")};d.appendChild(pb)}
+    box.appendChild(d);
+  });
+}
+function openBale(id,text){
+  var done=function(){
+    var tt=$("toast");tt.textContent="پیام کپی شد. در بله پیست کن و بفرست.";tt.style.display="block";
+    window.open("https://ble.ir/"+String(id).replace("@",""),"_blank");
+  };
+  try{navigator.clipboard.writeText(text).then(done,done)}catch(e){done()}
+}
+$("fGrade").onchange=render;$("fSubj").onchange=render;
+$("dClose").onclick=function(){$("dlg").close()};
+$("sForm").onsubmit=function(ev){
+  ev.preventDefault();
+  var m="درخواست کلاس\nمعلم: "+cur.n+" ("+cur.s+")\nدانش‌آموز: "+$("sName").value+"\nپایه: "+$("sGrade").value+"\nتوضیح: "+$("sMsg").value;
+  openBale(cur.id,m);
+};
+$("tForm").onsubmit=function(ev){
+  ev.preventDefault();
+  var m="ثبت‌نام معلم\nنام: "+$("tName").value+"\nدرس و پایه: "+$("tSubj").value+"\nهزینه جلسه: "+$("tPrice").value+" تومان\nمعرفی: "+$("tBio").value+"\nآیدی بله: "+$("tId").value;
+  var fallback=function(){var done=function(){alert("پیام ثبت‌نام کپی شد. در بله پیست کن و بفرست.");window.open("https://ble.ir/"+ADMIN_BALE,"_blank")};
+    try{navigator.clipboard.writeText(m).then(done,done)}catch(e){done()}};
+  if(!db){fallback();return}
+  var rec={name:$("tName").value,subj:$("tSubj").value,price:$("tPrice").value,bio:$("tBio").value,bale:$("tId").value,pay:$("tPay").value,at:Date.now()};
+  db.collection("applications").doc("a"+Date.now()+Math.random().toString(36).slice(2,7)).set(rec).then(function(){alert("درخواست ثبت شد. بعد از تأیید در فهرست نمایش داده می‌شود.");$("tForm").reset()},fallback);
+};
+function renderAdmin(snap){
+  var box=$("adminList");box.textContent="";
+  if(snap.empty){box.textContent="درخواستی نیست.";return}
+  snap.docs.forEach(function(x){
+    var o=x.data(),d=document.createElement("div");d.className="t";
+    d.innerHTML='<div><h3></h3><div class="meta"></div></div><div></div><button type="button">تأیید و نمایش</button>';
+    d.querySelector("h3").textContent=o.name+" — "+o.subj;
+    d.querySelector(".meta").textContent=o.price+" تومان · "+o.bale;
+    d.querySelector("button").onclick=function(){db.collection("teachers").doc(x.id).set(o).then(function(){return db.collection("applications").doc(x.id).delete()})};
+    box.appendChild(d);
+  });
+}
+render();
+(async function(){
+  try{
+    if(!window.claude||!claude.use)return;
+    db=await claude.use("db");user=await claude.use("user");
+    if(!db)return;
+    db.collection("teachers").onSnapshot(function(s){
+      live=s.docs.map(function(x){var o=x.data();return {n:o.name,s:o.subj,g:"",p:o.price,id:o.bale,b:o.bio||"",pay:o.pay||""}});
+      render();
+    },function(){});
+    if(user&&await user.isOwner()){
+      $("admin").classList.remove("hidden");
+      db.collection("applications").onSnapshot(renderAdmin,function(){});
+    }
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
